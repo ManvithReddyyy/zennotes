@@ -33,12 +33,15 @@ export interface SyncQueueItem {
     timestamp: number;
 }
 
+export interface TagColor {
+    bg: string;
+    text: string;
+}
+
 export const TAG_COLORS: Record<string, string> = {
-    personal: '#3b82f6', // blue
-    work: '#8b5cf6', // purple
-    ideas: '#eab308', // yellow
-    todo: '#ef4444', // red
-    archive: '#6b7280', // gray
+    personal: '#FFB5E8', // Pastel Pink
+    work: '#B5EAD7',     // Pastel Mint
+    ideas: '#C7CEEA',    // Pastel Purple
 };
 
-export const DEFAULT_TAGS = Object.keys(TAG_COLORS);
+export const DEFAULT_TAGS = ['personal', 'work', 'ideas'];

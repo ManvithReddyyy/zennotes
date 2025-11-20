@@ -1,185 +1,305 @@
-# 🧘‍♂️ ZenNotes
+# ZenNotes
 
-A **production-ready**, ultra-minimal note-taking application built with Next.js 15, featuring offline-first architecture, real-time sync, and full PWA support.
+<div align="center">
 
-## ✨ Features
+**A modern, minimalist note-taking application built for productivity**
 
-### 🔐 Authentication
-- Email/password authentication via Supabase
-- Secure session management with cookies
-- Protected routes with middleware
-- Password reset functionality
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
+[![Supabase](https://img.shields.io/badge/Supabase-Powered-green)](https://supabase.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-### 📝 Note Management
-- Create, read, update, delete notes
-- Auto-save with 1-second debounce
-- Rich text editing with auto-resizing textarea
-- Soft delete with restore from trash
-- Favorite notes for quick access
-- Color-coded tags (personal, work, ideas, todo, archive)
-- Server-side search across titles and content
+[Features](#features) • [Demo](#demo) • [Quick Start](#quick-start) • [Documentation](#documentation) • [Contributing](#contributing)
 
-### 🌐 Offline Support
-- Full offline read/write capabilities
-- IndexedDB for local storage
-- Automatic sync when online
-- Conflict resolution (server wins)
-- Sync queue for pending changes
-- Visual offline indicator
-
-### 📱 Progressive Web App
-- Fully installable on mobile & desktop
-- Service worker with Workbox
-- Cached static assets and pages
-- Offline fallback support
-- App manifest for native-like experience
-
-### 🎨 Design
-- Ultra-minimal aesthetic (Notion/Linear/Apple Notes inspired)
-- Light & dark mode support
-- Inter font family
-- Extensive whitespace
-- Soft shadows, no borders
-- Smooth Framer Motion animations
-
-## 🛠 Tech Stack
-
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **State**: Zustand
-- **Database**: Supabase (PostgreSQL)
-- **Auth**: Supabase Auth
-- **Offline**: IndexedDB (idb)
-- **PWA**: @ducanh2912/next-pwa
-- **Deployment**: Vercel
-
-## 📦 Installation
-
-### Prerequisites
-
-- Node.js 18+ and npm
-- A Supabase account ([supabase.com](https://supabase.com))
-
-### 1. Clone & Install
-
-```bash
-cd zennotes
-npm install
-```
-
-### 2. Set Up Supabase
-
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Go to **Project Settings** → **API**
-3. Copy your **Project URL** and **anon/public key**
-
-### 3. Create Database Schema
-
-1. Open your Supabase project
-2. Go to **SQL Editor**
-3. Run the migration script from `supabase-migration.sql`
-
-This will create:
-- `notes` table with proper indexes
-- Row Level Security (RLS) policies
-- Auto-update trigger for `updated_at`
-
-### 4. Configure Environment Variables
-
-Create a `.env.local` file in the project root:
-
-```bash
-NEXT_PUBLIC_SUPABASE_URL=your-project-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-```
-
-### 5. Run Development Server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see the app.
-
-## 🚀 Deployment
-
-### Deploy to Vercel
-
-1. Push your code to GitHub
-2. Connect your repository to [Vercel](https://vercel.com)
-3. Add environment variables in Vercel dashboard:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-4. Deploy!
-
-### Build for Production
-
-```bash
-npm run build
-npm start
-```
-
-## 🎯 Usage
-
-### Creating Notes
-
-1. Click **"New note"** button
-2. Enter title and content
-3. Add optional tag and favorite
-4. Notes auto-save after 1 second
-
-### Organizing Notes
-
-- **Favorite**: Click star icon to add to favorites
-- **Tag**: Select from 5 color-coded tags
-- **Search**: Use search bar for instant filtering
-- **Delete**: Move to trash (soft delete)
-- **Restore**: Restore from trash
-
-### Offline Mode
-
-- Works fully offline after initial load
-- Creates/edits notes locally
-- Syncs automatically when online
-- Shows offline indicator banner
-
-### Installing as PWA
-
-**Desktop (Chrome/Edge)**:
-1. Click install icon in address bar
-2. Click "Install"
-
-**Mobile (iOS)**:
-1. Safari → Share → Add to Home Screen
-
-**Mobile (Android)**:
-1. Chrome → Menu → Install App
-
-## 🔧 Development
-
-### Code Quality
-
-```bash
-# Lint
-npm run lint
-
-# Format (if using Prettier CLI)
-npx prettier --write .
-```
-
-## 🔐 Security
-
-- Row Level Security (RLS) enabled on all tables
-- Users can only access their own notes
-- Secure cookie-based sessions
-- Environment variables for sensitive data
-
-## 📝 License
-
-MIT License - feel free to use this project as you wish!
+</div>
 
 ---
 
-**Built with ❤️ using Next.js 15 and Supabase**
+## Overview
+
+ZenNotes is a production-ready, offline-first note-taking application designed for teams and individuals who value simplicity and performance. Built with modern web technologies, it offers seamless synchronization, robust offline capabilities, and an intuitive user experience.
+
+### Key Highlights
+
+- 🚀 **Blazing Fast** - Built on Next.js 15 with optimized performance
+- 📱 **Progressive Web App** - Install on any device, works offline
+- 🔒 **Secure by Default** - Row-level security with Supabase
+- 🎨 **Beautiful UI** - Minimal design with dark mode support
+- ⚡ **Real-time Sync** - Automatic synchronization across devices
+- 🔍 **Powerful Search** - Find notes instantly with full-text search
+
+---
+
+## Features
+
+### Core Functionality
+
+- **Rich Note Management**
+  - Create, edit, and organize notes with ease
+  - Tag-based categorization (Personal, Work, Ideas)
+  - Favorite important notes for quick access
+  - Soft delete with trash recovery
+
+- **Offline-First Architecture**
+  - Full functionality without internet connection
+  - Automatic background synchronization
+  - Conflict resolution with server-wins strategy
+  - IndexedDB for local persistence
+
+- **Modern User Experience**
+  - Responsive design for all screen sizes
+  - Mobile-optimized with sliding sidebar
+  - Smooth animations with Framer Motion
+  - Light and dark theme support
+
+- **Enterprise Security**
+  - Supabase authentication
+  - Row-level security (RLS) policies
+  - Secure session management
+  - Protected API routes
+
+---
+
+## Demo
+
+**Live Application:** [Your Deployment URL]
+
+### Screenshots
+
+*Coming soon - Add screenshots of your application*
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+- **Node.js** 18.x or higher
+- **npm** or **yarn**
+- **Supabase Account** (free tier available)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/zennotes.git
+   cd zennotes
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.local.example .env.local
+   ```
+   
+   Edit `.env.local` and add your Supabase credentials:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+4. **Set up the database**
+   
+   Run the SQL migration in your Supabase SQL Editor:
+   ```bash
+   # Copy contents of supabase-migration.sql
+   # Paste and execute in Supabase Dashboard > SQL Editor
+   ```
+
+5. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+6. **Open your browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+---
+
+## Documentation
+
+### Project Structure
+
+```
+zennotes/
+├── app/                    # Next.js 15 App Router
+│   ├── api/               # API routes
+│   ├── auth/              # Authentication pages
+│   ├── notes/             # Notes pages
+│   └── layout.tsx         # Root layout
+├── components/            # React components
+├── lib/                   # Utilities and helpers
+│   ├── supabase.ts       # Supabase client
+│   ├── idb.ts            # IndexedDB wrapper
+│   └── sync-engine.ts    # Offline sync logic
+├── store/                 # Zustand state management
+├── public/                # Static assets
+└── supabase-migration.sql # Database schema
+```
+
+### Technology Stack
+
+| Category | Technology |
+|----------|-----------|
+| **Framework** | Next.js 15 (App Router) |
+| **Language** | TypeScript 5.0 |
+| **Styling** | Tailwind CSS |
+| **Database** | Supabase (PostgreSQL) |
+| **Authentication** | Supabase Auth |
+| **State Management** | Zustand |
+| **Animations** | Framer Motion |
+| **Offline Storage** | IndexedDB |
+| **PWA** | @ducanh2912/next-pwa |
+
+### Configuration
+
+#### Supabase Setup
+
+1. Create a new project at [supabase.com](https://supabase.com)
+2. Navigate to **Settings** > **API**
+3. Copy your **Project URL** and **anon/public key**
+4. Run the migration script in **SQL Editor**
+
+#### Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | Yes |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anonymous key | Yes |
+
+---
+
+## Deployment
+
+### Deploy to Vercel (Recommended)
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git push origin main
+   ```
+
+2. **Import to Vercel**
+   - Visit [vercel.com](https://vercel.com)
+   - Click "Import Project"
+   - Select your repository
+   - Add environment variables
+   - Deploy
+
+3. **Configure Environment Variables**
+   
+   In Vercel Dashboard > Settings > Environment Variables, add:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+### Other Platforms
+
+ZenNotes can be deployed to any platform that supports Next.js:
+- **Netlify** - Full Next.js support
+- **Azure Static Web Apps** - With Node.js runtime
+- **AWS Amplify** - Serverless deployment
+- **Self-hosted** - Docker or Node.js server
+
+---
+
+## Development
+
+### Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run type-check   # Run TypeScript compiler
+```
+
+### Code Quality
+
+- **ESLint** - Code linting with Next.js config
+- **Prettier** - Code formatting
+- **TypeScript** - Type safety
+- **Git Hooks** - Pre-commit checks (optional)
+
+---
+
+## Contributing
+
+We welcome contributions from the community! Please follow these guidelines:
+
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit your changes** (`git commit -m 'Add amazing feature'`)
+4. **Push to the branch** (`git push origin feature/amazing-feature`)
+5. **Open a Pull Request**
+
+### Development Guidelines
+
+- Follow the existing code style
+- Write meaningful commit messages
+- Add tests for new features
+- Update documentation as needed
+- Ensure all tests pass before submitting
+
+---
+
+## Roadmap
+
+- [ ] Markdown support for rich text editing
+- [ ] Custom tags and categories
+- [ ] Note sharing and collaboration
+- [ ] Export notes (PDF, Markdown)
+- [ ] Browser extensions
+- [ ] Mobile apps (iOS/Android)
+- [ ] API for third-party integrations
+
+---
+
+## Support
+
+### Getting Help
+
+- **Documentation** - Check this README and inline code comments
+- **Issues** - [GitHub Issues](https://github.com/yourusername/zennotes/issues)
+- **Discussions** - [GitHub Discussions](https://github.com/yourusername/zennotes/discussions)
+
+### Reporting Bugs
+
+Please include:
+- Clear description of the issue
+- Steps to reproduce
+- Expected vs actual behavior
+- Screenshots (if applicable)
+- Environment details (OS, browser, etc.)
+
+---
+
+## License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Acknowledgments
+
+Built with ❤️ using:
+- [Next.js](https://nextjs.org/) - The React Framework
+- [Supabase](https://supabase.com/) - Open source Firebase alternative
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
+
+---
+
+<div align="center">
+
+**Made with precision and care**
+
+[Website](https://zennotes.app) • [Twitter](https://twitter.com/zennotes) • [LinkedIn](https://linkedin.com/company/zennotes)
+
+</div>
