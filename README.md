@@ -62,7 +62,7 @@ ZenNotes is a production-ready, offline-first note-taking application designed f
 
 ## Demo
 
-**Live Application:** [Your Deployment URL]
+**Live Application:** https://vercel.com/manvithreddyaddula-8636s-projects/zennotes/deployments
 
 ### Screenshots
 
