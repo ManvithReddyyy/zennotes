@@ -53,19 +53,29 @@ export const useNotesStore = create<NotesState>((set, get) => ({
     },
 
     createNote: async (input) => {
-        const newNote: Note = {
-            id: `local-${Date.now()}`,
-            user_id: '', // Will be set by server
-            title: input.title,
-            content: input.content,
-            tag: input.tag || null,
-            favorite: input.favorite || false,
-            deleted: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-        };
-
         try {
+            // Get current user ID
+            const { createClient } = await import('@/lib/supabase');
+            const supabase = createClient();
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (!user) {
+                console.error('No user found');
+                return null;
+            }
+
+            const newNote: Note = {
+                id: `local-${Date.now()}`,
+                user_id: user.id,
+                title: input.title,
+                content: input.content,
+                tag: input.tag || null,
+                favorite: input.favorite || false,
+                deleted: false,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+            };
+
             // Save to IndexedDB
             await saveNote(newNote);
 
