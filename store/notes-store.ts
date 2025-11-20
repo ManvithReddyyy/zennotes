@@ -65,7 +65,7 @@ export const useNotesStore = create<NotesState>((set, get) => ({
             }
 
             const newNote: Note = {
-                id: `local-${Date.now()}`,
+                id: crypto.randomUUID(),
                 user_id: user.id,
                 title: input.title,
                 content: input.content,
