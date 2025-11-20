@@ -15,41 +15,70 @@ export default function NoteDetailPage() {
 
     useEffect(() => {
         const foundNote = notes.find((n) => n.id === params.id);
-
-        if (!note || note.deleted) {
-            return null;
+        if (foundNote) {
+            setNote(foundNote);
         }
+    }, [notes, params.id]);
 
-        return (
-            <div className="h-full flex flex-col">
-                <div className="p-8 border-b border-gray-200 dark:border-gray-800">
-                    <div className="max-w-4xl mx-auto">
-                        <Toolbar
-                            isFavorite={note.favorite}
-                            tag={note.tag}
-                            onToggleFavorite={() => setNote({ ...note, favorite: !note.favorite })}
-                            onTagChange={(tag) => setNote({ ...note, tag })}
-                            onDelete={handleDelete}
-                        />
-                    </div>
-                </div>
+    useEffect(() => {
+        if (!note) return;
 
-                <div className="flex-1 overflow-auto p-8">
-                    <div className="max-w-4xl mx-auto">
-                        <Editor
-                            title={note.title}
-                            content={note.content}
-                            onTitleChange={(title) => setNote({ ...note, title })}
-                            onContentChange={(content) => setNote({ ...note, content })}
-                        />
+        const timer = setTimeout(async () => {
+            setStatus('saving');
+            await updateNote(note.id, {
+                title: note.title,
+                content: note.content,
+                tag: note.tag,
+                favorite: note.favorite,
+            });
+            setStatus('saved');
+            setTimeout(() => setStatus('idle'), 1000);
+        }, 1000);
 
-                        {status !== 'idle' && (
-                            <div className="mt-4 text-sm text-gray-500 dark:text-gray-500">
-                                {status === 'saving' ? 'saving...' : 'saved'}
-                            </div>
-                        )}
-                    </div>
+        return () => clearTimeout(timer);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [note?.title, note?.content, note?.tag, note?.favorite, note?.id]);
+
+    const handleDelete = async () => {
+        if (!note || !confirm('Move this note to trash?')) return;
+        await updateNote(note.id, { deleted: true });
+        router.push('/notes');
+    };
+
+    if (!note || note.deleted) {
+        return null;
+    }
+
+    return (
+        <div className="h-full flex flex-col">
+            <div className="p-8 border-b border-gray-200 dark:border-gray-800">
+                <div className="max-w-4xl mx-auto">
+                    <Toolbar
+                        isFavorite={note.favorite}
+                        tag={note.tag}
+                        onToggleFavorite={() => setNote({ ...note, favorite: !note.favorite })}
+                        onTagChange={(tag) => setNote({ ...note, tag })}
+                        onDelete={handleDelete}
+                    />
                 </div>
             </div>
-        );
-    }
+
+            <div className="flex-1 overflow-auto p-8">
+                <div className="max-w-4xl mx-auto">
+                    <Editor
+                        title={note.title}
+                        content={note.content}
+                        onTitleChange={(title) => setNote({ ...note, title })}
+                        onContentChange={(content) => setNote({ ...note, content })}
+                    />
+
+                    {status !== 'idle' && (
+                        <div className="mt-4 text-sm text-gray-500 dark:text-gray-500">
+                            {status === 'saving' ? 'saving...' : 'saved'}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
